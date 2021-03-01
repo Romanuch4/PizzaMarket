@@ -2,14 +2,16 @@ import React from 'react';
 import { Content } from './content/content.js';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeActiveCategory, changeSortBy } from './store/redux/actions/filter-ac';
-import { fetchPizzas } from './store/redux/actions/pizzas-ac.js';
+import { changeActiveCategory } from './store/redux/actions/filter-ac';
+import { fetchPizzas } from './store/redux/actions/pizzas-ac';
 import {
   addPizzaToBasket,
   deletePizzaFromBasket,
   deletePizzasFromBasket,
   deletePizzasItemFromBasket,
-} from './store/redux/actions/basket-ac.js';
+} from './store/redux/actions/basket-ac';
+import { Dispatch } from 'redux';
+import { GlobalStateType } from './store/redux/store.js';
 
 const Pizza = styled.div`
   background-color: #ffdf8c;
@@ -28,9 +30,37 @@ const Pizza = styled.div`
   }
 `;
 
-export const App = React.memo(() => {
-  const dispatch = useDispatch();
-  const state = useSelector((state) => {
+type PropsType = {
+  categories: any,
+  activeCategory: any,
+  pizzasItems: any,
+  isLoaded: boolean,
+  totalPrice: number,
+  itemsCount: number,
+  basketItems: any,
+  changeActiveCategory: Dispatch,
+  deletePizzaFromBasket: Dispatch,
+  addPizzaToBasket: Dispatch,
+  deletePizzasFromBasket: Dispatch,
+  deletePizzasItemFromBasket: Dispatch
+}
+
+/* declare namespace JSX {
+  interface IntrinsicElements {
+    categories: any,
+  activeCategory: any,
+  pizzasItems: any,
+  isLoaded: boolean,
+  totalPrice: number,
+  itemsCount: number,
+  basketItems: any,
+  }
+}
+ */
+
+export const App: React.FC = React.memo(() => {
+  const dispatch: Dispatch = useDispatch();
+  const state = useSelector((state: GlobalStateType) => {
     return {
       pizzas: state.pizzas.items,
       activeCategory: state.filter.activeCategory,
@@ -43,8 +73,19 @@ export const App = React.memo(() => {
   });
 
   React.useEffect(() => {
+    //@ts-ignore
     dispatch(fetchPizzas());
   }, [dispatch]);
+
+  type ParentState = {
+    categories: any,
+    activeCategory: any,
+    pizzasItems: any,
+    isLoaded: boolean,
+    totalPrice: number,
+    itemsCount: number,
+    basketItems: any,
+  }
 
   return (
     <>
@@ -59,7 +100,6 @@ export const App = React.memo(() => {
           basketItems={state.basketItems}
           changeActiveCategory={changeActiveCategory}
           deletePizzaFromBasket={deletePizzaFromBasket}
-          changeSortBy={changeSortBy}
           addPizzaToBasket={addPizzaToBasket}
           deletePizzasFromBasket={deletePizzasFromBasket}
           deletePizzasItemFromBasket={deletePizzasItemFromBasket}

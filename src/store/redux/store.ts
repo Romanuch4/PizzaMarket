@@ -4,8 +4,11 @@ import { pizzas } from './reducers/pizzas';
 import { basket } from './reducers/basket';
 import ReduxThunk from 'redux-thunk';
 
-const Store = createStore(combineReducers({ filter, pizzas, basket }), applyMiddleware(ReduxThunk));
+const rootReducer = combineReducers({ filter, pizzas, basket });
 
-window.store = Store;
+type RootReducerType = typeof rootReducer;
+export type GlobalStateType = ReturnType<RootReducerType>;
+
+const Store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default Store;

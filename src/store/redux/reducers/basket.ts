@@ -1,4 +1,10 @@
-const initialState = {
+type InitialStateType = {
+  totalPrice: number,
+  itemsCount: number,
+  items: any,
+}
+
+const initialState: InitialStateType = {
   items: {},
   totalPrice: 0,
   itemsCount: 0,
@@ -13,7 +19,7 @@ export const actionTypes = {
   DELETE_ITEM_PIZZA: 'DELETE_ITEM_PIZZA',
 };
 
-export const basket = (state = initialState, action) => {
+export const basket = (state = initialState, action: any): InitialStateType => {
   if (action.type === actionTypes.SET_ITEMS) {
     const newItems = {
       ...state.items,
@@ -26,7 +32,7 @@ export const basket = (state = initialState, action) => {
       ...state,
       items: newItems,
       itemsCount: allPizzas.length,
-      totalPrice: allPizzas.reduce((sum, obj) => obj.price + sum, 0),
+      totalPrice: allPizzas.reduce((sum: number, obj: any) => obj.price + sum, 0),
     };
   } else if (action.type === actionTypes.DELETE_ITEM) {
     const items = {
@@ -38,7 +44,7 @@ export const basket = (state = initialState, action) => {
       ...state,
       items,
       itemsCount: allPizzas.length,
-      totalPrice: allPizzas.reduce((sum, obj) => obj.price + sum, 0),
+      totalPrice: allPizzas.reduce((sum: number, obj: any) => obj.price + sum, 0),
     };
   } else if (action.type === actionTypes.DELETE_ITEMS) {
     return {
@@ -57,7 +63,7 @@ export const basket = (state = initialState, action) => {
       ...state,
       items,
       itemsCount: allPizzas.length,
-      totalPrice: allPizzas.reduce((sum, obj) => obj.price + sum, 0),
+      totalPrice: allPizzas.reduce((sum: number, obj: any) => obj.price + sum, 0),
     };
   } else {
     return {

@@ -1,4 +1,16 @@
-const initialState = {
+type CategoriesItemType = {
+  id: number, 
+  name: string,
+} 
+
+type CaregoriesType = Array<CategoriesItemType>;
+
+type InitialStateType = {
+  activeCategory: number,
+  categories: CaregoriesType,
+}
+
+const initialState: InitialStateType = {
   categories: [
     { id: 0, name: 'Все' },
     { id: 1, name: 'Мясные' },
@@ -12,19 +24,13 @@ const initialState = {
 
 export const actionTypes = {
   CHANGE_ACTIVE_CATEGORY: 'CHANGE_ACTIVE_CATEGORY',
-  CHANGE_SORT_BY: 'CHANGE_SORT_BY',
 };
 
-export const filter = (state = initialState, action) => {
+export const filter = (state = initialState, action: any): InitialStateType => {
   if (action.type === actionTypes.CHANGE_ACTIVE_CATEGORY) {
     return {
       ...state,
       activeCategory: action.activeCategory,
-    };
-  } else if (action.type === actionTypes.CHANGE_SORT_BY) {
-    return {
-      ...state,
-      sortBy: action.sortBy,
     };
   } else {
     return {

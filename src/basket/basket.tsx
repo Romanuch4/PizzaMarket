@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import styled from 'styled-components';
 import { Header } from '../header/header';
 import { BasketEmpty } from './basket-empty/basket-empty';
 import { BasketFull } from './basket-full/basket-full';
-const isBasket = true;
+const isBasket: boolean = true;
 
 const BasketContentWrapper = styled.section`
   width: 100%;
@@ -21,16 +21,24 @@ const BasketContent = styled.div`
   padding: 15px;
 `;
 
-export const Basket = React.memo(
-  ({
+type PropsType = {
+  basketItems: any,
+  itemsCount: number,
+  totalPrice: number,
+  deletePizzasFromBasket: Dispatch<any>,
+  deletePizzasItemFromBasket: Dispatch<any>,
+  addPizzaToBasket: Dispatch<any>,
+  deletePizzaFromBasket: Dispatch<any>
+}
+
+export const Basket: React.FC<PropsType> = React.memo(({
     basketItems,
     itemsCount,
     totalPrice,
     deletePizzasFromBasket,
     deletePizzasItemFromBasket,
     addPizzaToBasket,
-    deletePizzaFromBasket,
-  }) => {
+    deletePizzaFromBasket,}) => {
     return (
       <>
         <Header isBasket={isBasket} />
