@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import {ItemsProps} from '../types/types';
 import styled from 'styled-components';
 import { Item } from './item/item';
 
@@ -19,12 +20,12 @@ const ItemsStyle = styled.section`
   }
 `;
 
-export const Items = React.memo(({ pizzasItems, activeCategory, isLoaded, addPizzaToBasket }) => {
+export const Items: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCategory, isLoaded, addPizzaToBasket }) => {
   const dispatch = useDispatch();
   return (
     <ItemsStyle>
       <Item
-        data={pizzasItems}
+        pizzasItems={pizzasItems}
         activeCategory={activeCategory}
         isLoaded={isLoaded}
         addPizzaToBasket={addPizzaToBasket}

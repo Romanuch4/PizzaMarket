@@ -1,11 +1,12 @@
 import React from 'react';
+import {BasketFullProps} from '../../types/types';
 import { BasketHeader } from './basket-header/basket-header';
 import { BasketItem } from './basket-item/basket-item';
 import { BasketInfo } from './basket-info/basket-info';
 import { BasketBottom } from './basket-bottom/basket-bottom';
 import { useDispatch } from 'react-redux';
 
-export const BasketFull = React.memo(
+export const BasketFull: React.FC<BasketFullProps> = React.memo(
   ({
     basketItems,
     itemsCount,

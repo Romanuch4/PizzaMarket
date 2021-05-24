@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content } from './content/content.js';
+import { Content } from './content/content';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeActiveCategory } from './store/redux/actions/filter-ac';
@@ -30,34 +30,6 @@ const Pizza = styled.div`
   }
 `;
 
-type PropsType = {
-  categories: any,
-  activeCategory: any,
-  pizzasItems: any,
-  isLoaded: boolean,
-  totalPrice: number,
-  itemsCount: number,
-  basketItems: any,
-  changeActiveCategory: Dispatch,
-  deletePizzaFromBasket: Dispatch,
-  addPizzaToBasket: Dispatch,
-  deletePizzasFromBasket: Dispatch,
-  deletePizzasItemFromBasket: Dispatch
-}
-
-/* declare namespace JSX {
-  interface IntrinsicElements {
-    categories: any,
-  activeCategory: any,
-  pizzasItems: any,
-  isLoaded: boolean,
-  totalPrice: number,
-  itemsCount: number,
-  basketItems: any,
-  }
-}
- */
-
 export const App: React.FC = React.memo(() => {
   const dispatch: Dispatch = useDispatch();
   const state = useSelector((state: GlobalStateType) => {
@@ -76,17 +48,7 @@ export const App: React.FC = React.memo(() => {
     //@ts-ignore
     dispatch(fetchPizzas());
   }, [dispatch]);
-
-  type ParentState = {
-    categories: any,
-    activeCategory: any,
-    pizzasItems: any,
-    isLoaded: boolean,
-    totalPrice: number,
-    itemsCount: number,
-    basketItems: any,
-  }
-
+  
   return (
     <>
       <Pizza>

@@ -24,6 +24,6 @@ const MainTitleStyle = styled.h1`
   }
 `;
 
-export const MainTitle = React.memo(() => {
+export const MainTitle: React.FC = React.memo(() => {
   return <MainTitleStyle>Все пиццы</MainTitleStyle>;
 });

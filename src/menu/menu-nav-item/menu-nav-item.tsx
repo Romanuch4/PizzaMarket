@@ -1,10 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { CategoriesItemType } from '../../store/redux/reducers/filter';
+import { MenuProps } from '../../types/types';
 
-const MenuNavItemStyle = styled.a`
-  color: #2c2c2c;
-  background-color: #f9f9f9;
+interface MenuNavItemProps {
+  readonly activeItem: boolean;
+};
+
+const MenuNavItemStyle = styled.a<MenuNavItemProps>`
   font-weight: bold;
   font-size: 16px;
   line-height: 19px;
@@ -40,20 +44,16 @@ const MenuNavItemStyle = styled.a`
     }
   }
 
-  ${(props) =>
-    props.activeItem &&
-    css`
-      background: #282828;
-      color: #fff;
-    `}
+  color: ${props => props.activeItem ? '#fff': '#2c2c2c'};
+  background-color: ${props => props.activeItem ? '#282828': '#f9f9f9'};
 `;
 
-export const MenuNavItem = React.memo(({ categories, activeCategory, changeActiveCategory }) => {
+export const MenuNavItem: React.FC<MenuProps> = React.memo(({ categories, activeCategory, changeActiveCategory }) => {
   const dispatch = useDispatch();
-  const onSelectedItem = (index) => {
+  const onSelectedItem = (index: number) => {
     dispatch(changeActiveCategory(index));
   };
-  const content = categories.map((elem, index) => {
+  const content = categories.map((elem: CategoriesItemType, index: number) => {
     return (
       <MenuNavItemStyle
         onClick={() => onSelectedItem(index)}

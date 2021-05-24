@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {ItemsProps, PizzasItemType} from '../../types/types';
 import styled from 'styled-components';
 import ContentLoader from 'react-content-loader';
 
@@ -195,7 +195,7 @@ const ItemBottomIconElem = styled.span`
   }
 `;
 
-const MyLoader = () => (
+const MyLoader: React.FC = () => (
   <ContentLoader
     speed={2}
     width={280}
@@ -211,11 +211,16 @@ const MyLoader = () => (
   </ContentLoader>
 );
 
-export const Item = React.memo(({ data, activeCategory, isLoaded, addPizzaToBasket, dispatch }) => {
-  const item = React.useRef(null);
+export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCategory, isLoaded, addPizzaToBasket, dispatch }) => {
+  const item = React.useRef<HTMLDivElement | null>(null);
+  interface ItemConfigType {
+    size: string,
+    type: string,
+  }
   React.useEffect(() => {
-    if (item.current) {
-      item.current.parentNode.childNodes.forEach((element) => {
+    if (item && item.current) {
+      // @ts-ignore: Object is possibly 'null'.
+      item.current.parentNode.childNodes.forEach((element: HTMLDivElement) => {
         element.style.display = 'none';
         if (activeCategory === 0) {
           element.style.display = 'flex';
@@ -226,12 +231,13 @@ export const Item = React.memo(({ data, activeCategory, isLoaded, addPizzaToBask
     }
   }, [activeCategory]);
 
-  const addPizzasToBasket = (evt, itemConfig) => {
-    const dataItem = data[evt.target.parentNode.parentNode.dataset.id];
+  const addPizzasToBasket = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, itemConfig: ItemConfigType) => {
+    const dataItem = pizzasItems[evt.target.parentNode.parentNode.dataset.id];
+    
     // если модификация товара не менялась, id не изменится. В случае изменения размера или типа теста к нему
     //прибавится 1000 или 2000 единиц соответственно. Это сделано для того, чтобы создать новый индекс, по которому
     //можно будет отображать массивы пицц в корзине.
-    let addToId = 0;
+    let addToId: number = 0;
     if (itemConfig.size === '30 см.') {
       addToId += 1000;
     } else if (itemConfig.size === '40 см.') {
@@ -253,23 +259,23 @@ export const Item = React.memo(({ data, activeCategory, isLoaded, addPizzaToBask
     );
   };
   const types = ['тонкое', 'толстое'];
-  const pizza = data.map((elem, index) => {
-    const itemConfig = {
+  const pizza = pizzasItems.map((elem: PizzasItemType, index: number) => {
+    const itemConfig: ItemConfigType = {
       size: '26 см.',
       type: 'тонкое',
     };
 
-    const checkType = (evt) => {
+    const checkType: React.ChangeEventHandler<HTMLInputElement> | undefined = (evt: React.ChangeEvent) => {
       itemConfig.type = evt.target.dataset.name;
     };
 
-    const checkSize = (evt) => {
+    const checkSize: React.ChangeEventHandler<HTMLInputElement> | undefined = (evt: React.ChangeEvent) => {
       itemConfig.size = evt.target.dataset.name;
     };
-    const inputType = elem.types.map((input1, i) => {
+    const inputType = elem.types.map((input1: number, i: number) => {
       return (
         <ItemTypeStyle
-          name={`type${data[index].id}`}
+          name={`type${pizzasItems[index].id}`}
           type="radio"
           data-name={types[input1]}
           key={i}
@@ -281,7 +287,7 @@ export const Item = React.memo(({ data, activeCategory, isLoaded, addPizzaToBask
     const inputSize = elem.sizes.map((input2, i) => {
       return (
         <ItemSizeStyle
-          name={`size${data[index].id}`}
+          name={`size${pizzasItems[index].id}`}
           type="radio"
           data-name={`${String(input2)} см.`}
           key={i}
@@ -318,11 +324,3 @@ export const Item = React.memo(({ data, activeCategory, isLoaded, addPizzaToBask
   });
   return <>{pizza}</>;
 });
-
-Item.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-Item.defaultProps = {
-  data: [{}],
-};

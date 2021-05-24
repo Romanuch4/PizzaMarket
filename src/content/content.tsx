@@ -6,6 +6,7 @@ import { MainTitle } from '../main-title/main-title';
 import { Items } from '../items/items';
 import { Route } from 'react-router-dom';
 import { Basket } from '../basket/basket';
+import {ContentProps, ItemsProps} from '../types/types';
 
 const PizzaContent = styled.div`
   background-color: #fff;
@@ -15,7 +16,9 @@ const PizzaContent = styled.div`
   flex-grow: 1;
 `;
 
-export const Content = React.memo(
+
+
+export const Content: React.FC<ContentProps & ItemsProps> = React.memo(
   ({
     pizzasItems,
     activeCategory,
@@ -72,7 +75,3 @@ export const Content = React.memo(
     );
   },
 );
-
-Content.defaultProps = {
-  pizzasItems: [{}],
-};

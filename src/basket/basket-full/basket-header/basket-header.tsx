@@ -1,4 +1,5 @@
 import React from 'react';
+import {BasketHeaderProps} from '../../../types/types';
 import styled from 'styled-components';
 import titleIcon from '../../../assets/images/basket-icon.svg';
 import trashboxIcon from '../../../assets/images/trashbox-icon.svg';
@@ -44,7 +45,7 @@ const BasketTrashBoxStyle = styled.button`
   }
 `;
 
-export const BasketHeader = React.memo(({ deletePizzasFromBasket, dispatch }) => {
+export const BasketHeader: React.FC<BasketHeaderProps> = React.memo(({ deletePizzasFromBasket, dispatch }) => {
   const deletePizzas = () => {
     dispatch(deletePizzasFromBasket());
   };

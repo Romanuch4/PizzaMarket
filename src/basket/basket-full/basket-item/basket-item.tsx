@@ -1,4 +1,5 @@
 import React from 'react';
+import { BasketItemProps, Element } from "../../../types/types";
 import styled from 'styled-components';
 
 const Item = styled.div`
@@ -130,7 +131,7 @@ const ItemDelete = styled.div`
   }
 `;
 
-export const BasketItem = React.memo(
+export const BasketItem: React.FC<BasketItemProps> = React.memo(
   ({
     basketItems,
     deletePizzasItemFromBasket,
@@ -147,16 +148,16 @@ export const BasketItem = React.memo(
       data.push(item);
     }
 
-    const deleteItem = (id) => {
+    const deleteItem = (id: number) => {
       dispatch(deletePizzasItemFromBasket(id));
     };
 
-    const addItemElem = (elem) => {
+    const addItemElem = (elem: Element) => {
       dispatch(addPizzaToBasket(elem));
     };
 
-    const reduceItemElem = (elem) => {
-      if (elem.count <= 1) {
+    const reduceItemElem = (elem: Element) => {
+      if (elem.count && elem.count <= 1) {
         deleteItem(elem.id);
       } else {
         dispatch(deletePizzaFromBasket(elem.id));
@@ -174,12 +175,12 @@ export const BasketItem = React.memo(
             <h4>{`${elem.type} тесто, ${elem.size}`}</h4>
           </ItemInfo>
           <ItemCount>
-            <ItemReduce onClick={() => reduceItemElem(elem)} tabIndex="0" />
+            <ItemReduce onClick={() => reduceItemElem(elem)} tabIndex={0} />
             <span>{elem.count}</span>
-            <ItemAdd onClick={() => addItemElem(elem)} tabIndex="0" />
+            <ItemAdd onClick={() => addItemElem(elem)} tabIndex={0} />
           </ItemCount>
           <ItemPrice>{`${Number(elem.price) * elem.count} ₽`}</ItemPrice>
-          <ItemDelete onClick={() => deleteItem(elem.id)} tabIndex="0">
+          <ItemDelete onClick={() => deleteItem(elem.id)} tabIndex={0}>
             +
           </ItemDelete>
         </Item>

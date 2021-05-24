@@ -73,7 +73,7 @@ const Link = styled.a`
   }
 `;
 
-export const BasketEmpty = React.memo(() => {
+export const BasketEmpty: React.FC = React.memo(() => {
   return (
     <BasketEmptyBlock>
       <Title>

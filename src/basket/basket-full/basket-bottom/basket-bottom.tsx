@@ -32,7 +32,7 @@ const BasketBuy = styled(BasketComeback)`
   color: #fff;
 `;
 
-export const BasketBottom = React.memo(() => {
+export const BasketBottom: React.FC = React.memo(() => {
   return (
     <BasketBottomStyle>
       <BasketComeback to="/" as={NavLink}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {HeaderProps} from '../../types/types';
 import styled from 'styled-components';
 import { HeaderLogo } from '../header-logo/header-logo';
 import { HeaderMenu } from '../header-menu/header-menu';
@@ -19,7 +20,7 @@ const HeaderContentStyle = styled.div`
   }
 `;
 
-export const HeaderContent = React.memo(({ isBasket, itemsCount, totalPrice }) => {
+export const HeaderContent: React.FC<HeaderProps> = React.memo(({ isBasket, itemsCount, totalPrice }) => {
   return (
     <HeaderContentStyle>
       <HeaderLogo />

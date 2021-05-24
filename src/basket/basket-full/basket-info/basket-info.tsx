@@ -1,4 +1,5 @@
 import React from 'react';
+import {BasketInfoProps} from '../../../types/types';
 import styled from 'styled-components';
 
 const BasketInfoStyle = styled.div`
@@ -29,7 +30,7 @@ const TotalPrice = styled(TotalPizza)`
   }
 `;
 
-export const BasketInfo = React.memo(({ totalPrice, itemsCount }) => {
+export const BasketInfo: React.FC<BasketInfoProps> = React.memo(({ totalPrice, itemsCount }) => {
   return (
     <BasketInfoStyle>
       <TotalPizza>

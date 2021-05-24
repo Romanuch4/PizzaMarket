@@ -10,5 +10,4 @@ type RootReducerType = typeof rootReducer;
 export type GlobalStateType = ReturnType<RootReducerType>;
 
 const Store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-
 export default Store;

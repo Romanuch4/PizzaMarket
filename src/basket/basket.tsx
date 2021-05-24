@@ -1,4 +1,5 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
+import {BasketProps} from '../types/types';
 import styled from 'styled-components';
 import { Header } from '../header/header';
 import { BasketEmpty } from './basket-empty/basket-empty';
@@ -21,17 +22,7 @@ const BasketContent = styled.div`
   padding: 15px;
 `;
 
-type PropsType = {
-  basketItems: any,
-  itemsCount: number,
-  totalPrice: number,
-  deletePizzasFromBasket: Dispatch<any>,
-  deletePizzasItemFromBasket: Dispatch<any>,
-  addPizzaToBasket: Dispatch<any>,
-  deletePizzaFromBasket: Dispatch<any>
-}
-
-export const Basket: React.FC<PropsType> = React.memo(({
+export const Basket: React.FC<BasketProps> = React.memo(({
     basketItems,
     itemsCount,
     totalPrice,
@@ -41,7 +32,7 @@ export const Basket: React.FC<PropsType> = React.memo(({
     deletePizzaFromBasket,}) => {
     return (
       <>
-        <Header isBasket={isBasket} />
+        <Header isBasket={isBasket} itemsCount={itemsCount} totalPrice={totalPrice} />
         <BasketContentWrapper>
           <BasketContent>
             {Object.keys(basketItems).length === 0 && basketItems.constructor === Object ? (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { HeaderProps } from '../types/types';
 import { HeaderContent } from './header-content/header-content';
 import styled from 'styled-components';
 import { HeaderLine } from './header-line/header-line';
@@ -15,7 +16,7 @@ const HeaderStyle = styled.header`
   }
 `;
 
-export const Header = React.memo(({ isBasket, itemsCount, totalPrice }) => {
+export const Header: React.FC<HeaderProps> = React.memo(({ isBasket, itemsCount, totalPrice }) => {
   return (
     <>
       <HeaderStyle>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {HeaderMenuProps} from '../../types/types';
 import shoppingCart from '../../assets/images/shopping-cart.svg';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
@@ -48,7 +49,7 @@ const CardImgStyle = styled.img`
   top: 3px;
 `;
 
-export const HeaderMenu = React.memo(({ totalPrice, itemsCount }) => {
+export const HeaderMenu: React.FC<HeaderMenuProps> = React.memo(({ totalPrice, itemsCount }) => {
   return (
     <HeaderMenuStyle as={NavLink} to="/basket">
       <PriceStyle>{totalPrice} ₽</PriceStyle>

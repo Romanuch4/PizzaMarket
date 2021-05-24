@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuNavItem } from '../menu-nav-item/menu-nav-item';
 import styled from 'styled-components';
+import { MenuProps } from '../../types/types';
 
 const MenuNavStyle = styled.nav`
   display: flex;
@@ -21,7 +22,7 @@ const MenuNavStyle = styled.nav`
   }
 `;
 
-export const MenuNav = React.memo(({ activeCategory, categories, changeActiveCategory }) => {
+export const MenuNav: React.FC<MenuProps> = React.memo(({ activeCategory, categories, changeActiveCategory }) => {
   return (
     <MenuNavStyle>
       <MenuNavItem

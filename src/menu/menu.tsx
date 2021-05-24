@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MenuProps } from '../types/types';
 import { MenuNav } from './menu-nav/menu-nav';
 
 const MenuStyle = styled.div`
@@ -17,7 +18,7 @@ const MenuStyle = styled.div`
   }
 `;
 
-export const Menu = React.memo(({ activeCategory, categories, changeActiveCategory }) => {
+export const Menu: React.FC<MenuProps> = React.memo(({ activeCategory, categories, changeActiveCategory }) => {
   return (
     <MenuStyle>
       <MenuNav
