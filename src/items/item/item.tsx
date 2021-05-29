@@ -214,8 +214,8 @@ const MyLoader: React.FC = () => (
 export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCategory, isLoaded, addPizzaToBasket, dispatch }) => {
   const item = React.useRef<HTMLDivElement | null>(null);
   interface ItemConfigType {
-    size: string,
-    type: string,
+    size: string | undefined,
+    type: string | undefined,
   }
   React.useEffect(() => {
     if (item && item.current) {
@@ -232,7 +232,8 @@ export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCateg
   }, [activeCategory]);
 
   const addPizzasToBasket = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, itemConfig: ItemConfigType) => {
-    const dataItem = pizzasItems[evt.target.parentNode.parentNode.dataset.id];
+    // @ts-ignore: Object is possibly 'null'.
+    const dataItem: PizzasItemType = pizzasItems[(evt.target as HTMLDivElement).parentNode.parentNode.dataset.id];
     
     // если модификация товара не менялась, id не изменится. В случае изменения размера или типа теста к нему
     //прибавится 1000 или 2000 единиц соответственно. Это сделано для того, чтобы создать новый индекс, по которому
@@ -247,8 +248,8 @@ export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCateg
     if (itemConfig.type !== 'тонкое') {
       addToId += 10000;
     }
-    dispatch(
-      addPizzaToBasket({
+    if (dispatch) {
+      dispatch(addPizzaToBasket({
         id: dataItem.id + addToId,
         title: dataItem.name,
         price: dataItem.price,
@@ -257,6 +258,7 @@ export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCateg
         type: itemConfig.type,
       }),
     );
+    }
   };
   const types = ['тонкое', 'толстое'];
   const pizza = pizzasItems.map((elem: PizzasItemType, index: number) => {
@@ -265,11 +267,17 @@ export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCateg
       type: 'тонкое',
     };
 
-    const checkType: React.ChangeEventHandler<HTMLInputElement> | undefined = (evt: React.ChangeEvent) => {
+    const checkType: React.ChangeEventHandler<HTMLInputElement> = (evt: React.ChangeEvent) => {
+      if (!(evt.target instanceof HTMLInputElement)) {
+        return;
+      }
       itemConfig.type = evt.target.dataset.name;
     };
 
-    const checkSize: React.ChangeEventHandler<HTMLInputElement> | undefined = (evt: React.ChangeEvent) => {
+    const checkSize: React.ChangeEventHandler<HTMLInputElement> = (evt: React.ChangeEvent) => {
+      if (!(evt.target instanceof HTMLInputElement)) {
+        return;
+      }
       itemConfig.size = evt.target.dataset.name;
     };
     const inputType = elem.types.map((input1: number, i: number) => {

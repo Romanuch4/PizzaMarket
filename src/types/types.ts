@@ -1,46 +1,50 @@
-import { CategoriesItemType } from "../store/redux/reducers/filter";
+import { AnyAction, Dispatch } from "redux";
+import { AddPizzaToBasketType, DeletePizzaFromBasketType, DeletePizzasFromBasketType, DeletePizzasItemFromBasketType } from "../store/redux/actions/basket-ac";
+import { ChangeActiveCategoryType } from "../store/redux/actions/filter-ac";
+import { ItemsType, ItemType } from "../store/redux/reducers/basket";
+import { CaregoriesType, CategoriesItemType } from "../store/redux/reducers/filter";
 
 export interface BasketItemProps  {
-  basketItems: any,
-  deletePizzasItemFromBasket: any,
-  addPizzaToBasket: any,
-  deletePizzaFromBasket: any,
-  dispatch?: any,
+  basketItems: ItemsType,
+  deletePizzasItemFromBasket: (id: number) => DeletePizzasItemFromBasketType,
+  addPizzaToBasket: (elem: ElementType) => AddPizzaToBasketType,
+  deletePizzaFromBasket: (id: number) => DeletePizzaFromBasketType,
+  dispatch?: Dispatch<AnyAction>,
 }
 
 export interface BasketFullProps extends BasketItemProps {
-  itemsCount: any,
-  totalPrice: any,
-  deletePizzasFromBasket: any,
+  itemsCount: number,
+  totalPrice: number,
+  deletePizzasFromBasket: () => DeletePizzasFromBasketType,
 }
 
 export interface BasketProps extends BasketFullProps {
   isBasket?: boolean,
 }
 
-export interface Element  {
+export interface ElementType  {
   id: number,
   title: string,
   price: number,
   imgSrc: string,
-  size: string,
-  type: string,
+  size: string | undefined,
+  type: string | undefined ,
   count?: number | undefined,
 }
 
 export interface BasketInfoProps {
-  itemsCount: any,
-  totalPrice: any,
+  itemsCount: number,
+  totalPrice: number,
 }
 
 export interface BasketHeaderProps {
-  deletePizzasFromBasket: any,
-  dispatch: any,
+  deletePizzasFromBasket: () => DeletePizzasFromBasketType,
+  dispatch: Dispatch<AnyAction>,
 }
 
 export interface HeaderMenuProps {
-  itemsCount: any, 
-  totalPrice: any,
+  itemsCount: number,
+  totalPrice: number,
 }
 
 export interface HeaderProps extends HeaderMenuProps {
@@ -63,29 +67,29 @@ export interface PizzasItemType {
 
 export interface ContentProps {
   pizzasItems: Array<PizzasItemType>,
-  activeCategory: any,
-  categories: any,
-  isLoaded: any,
-  changeActiveCategory: any,
-  itemsCount: any,
-  totalPrice: any,
-  addPizzaToBasket: any,
-  deletePizzaFromBasket: any,
-  basketItems: any,
-  deletePizzasFromBasket: any,
-  deletePizzasItemFromBasket: any,
+  activeCategory: number,
+  categories: CaregoriesType,
+  isLoaded: boolean,
+  changeActiveCategory: (activeCategory: number) => ChangeActiveCategoryType,
+  itemsCount: number,
+  totalPrice: number,
+  addPizzaToBasket: (item: ItemType) => AddPizzaToBasketType,
+  deletePizzaFromBasket: (id: number) => DeletePizzaFromBasketType,
+  basketItems: ItemsType,
+  deletePizzasFromBasket: () => DeletePizzasFromBasketType,
+  deletePizzasItemFromBasket: (id: number) => DeletePizzasItemFromBasketType,
 }
 
 export interface ItemsProps {
-  pizzasItems: any,
-  activeCategory: any,
-  isLoaded: any,
-  addPizzaToBasket: any,
-  dispatch?: any,
+  pizzasItems: Array<PizzasItemType>,
+  activeCategory: number,
+  isLoaded: boolean,
+  addPizzaToBasket: (item: ItemType) => AddPizzaToBasketType,
+  dispatch?: Dispatch<AnyAction>,
 }
 
 export interface MenuProps {
   categories: Array<CategoriesItemType>, 
-  activeCategory: any, 
-  changeActiveCategory: any,
+  activeCategory: number, 
+  changeActiveCategory: (activeCategory: number) => ChangeActiveCategoryType,
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasketItemProps, Element } from "../../../types/types";
+import { BasketItemProps, ElementType } from "../../../types/types";
 import styled from 'styled-components';
 
 const Item = styled.div`
@@ -147,23 +147,21 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(
       };
       data.push(item);
     }
-
     const deleteItem = (id: number) => {
-      dispatch(deletePizzasItemFromBasket(id));
+      dispatch?(deletePizzasItemFromBasket(id)): console.log(dispatch);
     };
 
-    const addItemElem = (elem: Element) => {
-      dispatch(addPizzaToBasket(elem));
+    const addItemElem = (elem: ElementType) => {
+      dispatch?(addPizzaToBasket(elem)): console.log(dispatch);
     };
 
-    const reduceItemElem = (elem: Element) => {
+    const reduceItemElem = (elem: ElementType) => {
       if (elem.count && elem.count <= 1) {
         deleteItem(elem.id);
       } else {
-        dispatch(deletePizzaFromBasket(elem.id));
+        dispatch?(deletePizzaFromBasket(elem.id)): console.log(dispatch);
       }
     };
-
     const items = data.map((elem) => {
       return (
         <Item key={elem.id + Math.random() * 10}>

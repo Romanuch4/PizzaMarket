@@ -1,9 +1,11 @@
+import { FilterTypes } from "../actions/filter-ac";
+
 export type CategoriesItemType = {
   id: number, 
   name: string,
 } 
 
-type CaregoriesType = Array<CategoriesItemType>;
+export type CaregoriesType = Array<CategoriesItemType>;
 
 type InitialStateType = {
   activeCategory: number,
@@ -26,7 +28,7 @@ export const actionTypes = {
   CHANGE_ACTIVE_CATEGORY: 'CHANGE_ACTIVE_CATEGORY',
 };
 
-export const filter = (state = initialState, action: any): InitialStateType => {
+export const filter = (state = initialState, action: FilterTypes): InitialStateType => {
   if (action.type === actionTypes.CHANGE_ACTIVE_CATEGORY) {
     return {
       ...state,

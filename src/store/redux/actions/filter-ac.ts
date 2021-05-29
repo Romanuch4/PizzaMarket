@@ -1,6 +1,8 @@
 import { actionTypes } from '../reducers/filter';
 
-type ChangeActiveCategoryType = {
+export type FilterTypes = ChangeActiveCategoryType;
+
+export type ChangeActiveCategoryType = {
   type: typeof actionTypes.CHANGE_ACTIVE_CATEGORY,
   activeCategory: number,
 }
