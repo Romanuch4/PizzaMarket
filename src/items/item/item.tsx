@@ -292,7 +292,7 @@ export const Item: React.FC<ItemsProps> = React.memo(({ pizzasItems, activeCateg
       );
     });
 
-    const inputSize = elem.sizes.map((input2, i) => {
+    const inputSize = elem.sizes.map((input2: number, i: number) => {
       return (
         <ItemSizeStyle
           name={`size${pizzasItems[index].id}`}
